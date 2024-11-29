@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000/';
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     // Set headers for streaming response
@@ -9,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader('Transfer-Encoding', 'chunked');
 
     // Fetch from the download API
-    const response = await fetch(`${BASE_URL}/download`);
+    const response = await fetch(`${BASE_URL}/api/download`);
     const reader = response.body?.getReader();
 
     if (!reader) {
