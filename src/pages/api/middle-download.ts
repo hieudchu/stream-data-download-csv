@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+console.log(BASE_URL);
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     // Set headers for streaming response
