@@ -1,3 +1,4 @@
+import { read } from 'fs';
 import { useState } from 'react';
 
 export const useDownload = () => {
@@ -9,7 +10,10 @@ export const useDownload = () => {
     setProgress(0);
     
     try {
-      const response = await fetch('/api/middle-download');
+      const response = await fetch('/api/download');
+      if(response.status != 200) {
+        throw new Error('API unable')
+      }
       const reader = response.body?.getReader();
       const decoder = new TextDecoder();
 
@@ -19,12 +23,12 @@ export const useDownload = () => {
 
       const chunks: BlobPart[] = [];
       let receivedLength = 0;
-
+      let b = 0;
       while (true) {
         const { done, value } = await reader.read();
         
         if (done) break;
-        
+        console.log(b++)
         chunks.push(decoder.decode(value, { stream: true }));
         receivedLength += value.length;
 
